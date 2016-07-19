@@ -1,0 +1,96 @@
+/* CSS file placeholder. */
+.list-class{
+  list-style: none;
+  padding-left: 2px;
+  padding-right: 2px;
+  padding-top: 5px;
+  overflow: hidden;
+  margin-bottom: 0;
+}
+.color-buttons{
+  width: 30px;
+  height:30px;
+  padding: 0;
+  border-radius: 50%;
+  border:10px solid #cfdcec;
+  overflow:hidden;
+
+  background: #4679BD;
+  box-shadow: 0 0 3px gray;
+}
+.color-buttons:hover {
+  animation-name: pulse_animation;
+  animation-duration: 5000ms;
+  transform-origin:70% 70%;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+@keyframes pulse_animation {
+  0% { transform: scale(1); }
+  15% { transform: scale(1.08); }
+  30% { transform: scale(1); }
+  40% { transform: scale(1.05); }
+  50% { transform: scale(1); }
+  60% { transform: scale(1.08); }
+  70% { transform: scale(1); }
+  85% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+#red-button{
+  background-color: #FF3300;
+  border: 3px solid #991F00;
+  margin-bottom: 6px;
+}
+#yellow-button{
+  background-color: #FFFF00;
+  border: 3px solid #999900;
+  margin-bottom: 6px;
+}
+#green-button{
+  background-color: #66FF33;
+  border: 3px solid #269900;
+  margin-bottom: 6px;
+}
+#blue-button{
+  background-color: #0000FF;
+  border: 3px solid #000099;
+  margin-bottom: 6px;
+}
+#orange-button{
+  background-color: #FF9900;
+  border: 3px solid #995C00;
+  margin-bottom: 3px;
+}
+button:active {
+  outline: none;
+  border: none;
+}
+button:focus {outline:0;}
+body{
+  border: 3px solid grey;
+  margin: 0px;
+}
+#option-button{
+  margin-top:17px;
+  background-image: url(../assets/setting_1.png);
+  background-repeat: no-repeat;
+  background-size: 30px 30px;
+  opacity: 1;
+}
+#history-button{
+  background-image: url(../assets/history1.png);
+  background-repeat: no-repeat;
+  background-size: 30px 30px;
+  opacity: 1;
+}
+.func-buttons{
+  border-radius: 50%;
+  border: 0px;
+  background-color: white;
+  width: 100%;
+  height: 30px;
+  padding: 0;
+}
+.func-buttons:hover{
+  -webkit-filter: invert(100%); filter: invert(100%);
+}

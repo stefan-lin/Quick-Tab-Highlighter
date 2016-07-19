@@ -1,0 +1,36 @@
+{
+  "manifest_version": 2,
+  "name": "TabHighlighter",
+  "short_name": "TabHighlighter",
+  "description": "Chrome extension that helps user to highlight specific pages.",
+  "version": "0.0.1",
+  "minimum_chrome_version": "38",
+
+  "icons": {
+    "16": "assets/icon_16.png",
+    "128": "assets/icon_128.png"
+  },
+
+  "permissions": [
+    "tabs",
+    "storage",
+    "chrome://favicon/"
+  ],
+  "browser_action":{
+    "default_icon": "assets/devil.png",
+    "default_popup": "popup.html",
+    "default_title": "Tab Highlighter"
+  },
+
+  "content_scripts":[{
+    "js": [ "js/app/content.js" ],
+    "css": [ "css/styles.css" ],
+    "matches": [ "http://*/*", "https://*/*"],
+    "run_at": "document_idle"
+  }],
+
+  "background": {
+    "scripts": ["js/app/background.js"],
+    "persistent": false
+  }
+}
