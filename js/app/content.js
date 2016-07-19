@@ -3,26 +3,30 @@
  */
 
 // TODO: FIX THIS FUNCTION
-function update_favicon(request){
-  var link = document.querySelector("head link[rel~='icon']");
-  if (!link) {
-    link = document.createElement("link");
-    link.setAttribute("rel", "icon");
-    document.body.appendChild(link);
+/**
+ *
+ * color_code is a string indicates color code
+ */
+function update_favicon(color_code){
+  var favicon_link_element = document.querySelector("head link[rel~='icon']");
+  if(!favicon_url) {
+    favicon_link_element = document.createElement("link");
+    favicon_link_element.setAttribute("rel", "icon");
+    document.body.appendChild(favicon_link_element);
   }
-  var betterFavicon = localStorage["better-favicon"];
-  if (betterFavicon) {
-    link.type = "image/x-icon";
-    link.href = betterFavicon;
-  } else {
-    var payload = {url: window.location.href};
-    chrome.extension.sendRequest(payload, function(response) {
-      link.type = "image/x-icon";
-      link.href = response;
-      localStorage["better-favicon"] = response;
+  var new_favicon = localStorage[color_code];
+  if(new_favicon) {
+    favicon_link_element.type = "image/x-icon";
+    favicon_link_element.href = new_favicon;
+  }
+  else{
+    chrome.extension.sendRequest(color_code, function(response) {
+      favicon_link_element.type = "image/x-icon";
+      favicon_link_element.href = response;
+      localStorage[color_code] = response;
     });
-  }
-}
+  } // END IF-ELSE
+} // END FUNCTION
 
 chrome.runtime.onMessage.addListener(function(message, sender, response){
   // VALIDATE THE MESSAGE RECEIVED
