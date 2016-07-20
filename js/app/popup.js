@@ -26,6 +26,7 @@ function reg_option_listener(){
 }
 
 function reg_red_listener(){
+  $(RED_ID).html('\u26D4');
   $(RED_ID).on('click', function(){
     console.log('red button clicked');
     //var background_color = $(RED_ID).attr('background-color');
@@ -40,16 +41,6 @@ function reg_red_listener(){
         }
       );  // END chrome.tabs.sendMessage
     }); // END chrome.tabs.query
-    //chrome.tabs.getSelected(null, function(tab){
-    //  console.log(tab.id);
-    //  chrome.tabs.sendMessage(
-    //    tab.id,
-    //    {from: 'popup', subject: 'HighlightTab', color: background_color},
-    //    function(response) {
-    //      console.log(response.msg);
-    //    }
-    //  );
-    //});
   });
 }
 

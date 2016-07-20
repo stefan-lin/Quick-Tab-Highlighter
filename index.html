@@ -1,12 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>TabHighlighter</title>
+  <title style="color: red;">&#9608</title>
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <h1 id="greeting" style="color: red;">&#9608</h1>
   
   <!--<script src="js/app/main.js"></script>-->
+  <!-- Script by hscripts.com -->
+  <!-- more scripts @ https://www.hscripts.com -->
+  <script type="text/javascript">
+    //function titlebar(val)
+    //{
+    //  var msg = "Your message here --- hscripts.com";
+    //  var speed = 500;
+    //  var pos = val;
+    //  var msg1 = "\u2588***** "+msg+" ******";
+    //  var msg2 = "------- "+msg+" -------";
+    //  if(pos == 0) {
+    //    masg = msg1;
+    //    pos = 1;
+    //  }
+    //  else if(pos == 1) {
+    //    masg = msg2;
+    //    pos = 0;
+    //  }
+    //  document.title = msg;
+    //  timer = window.setTimeout(function(){titlebar(0);},speed);
+    //}
+    //function titlebar(msg){
+    //  document.title = msg;
+    //  var c = msg.charAt(0);
+    //  var s = msg.substring(1);
+    //  s += c;
+    //  var t = window.setTimeout(function(){titlebar(s);}, 300);
+    //}
+    //titlebar('test string   ');
+    function titlebar(){
+      //var value = document.title;
+      //document.title = '\u26FD' + '\u26D4' +  '\u26CE' + '\u26A1' + '\u269B' +
+      //    '\u269C' + '\u2638' + '\u2622' + '\u2618' + '\u2622' + '\u2641' + '\u2705' + '\u27BF' + value;
+      var temp = document.getElementById('greeting');
+      temp.innerHTML = '\u26FD' + '\u26D4' +  '\u26CE' + '\u26A1' + '\u269B' +
+          '\u269C' + '\u2638' + '\u2622' + '\u2618' + '\u2622' + '\u2641' + '\u2705' + '\u27BF';
+      document.title += '\u26D4';
+    }
+    titlebar();
+  </script>
 </body>
 </html>

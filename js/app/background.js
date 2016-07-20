@@ -7,7 +7,7 @@
 
 function generate_favicon(color_code, callback){
   var canvas = document.createElement('canvas'), context;
-  cavas.width   = 16;
+  canvas.width   = 16;
   canvas.height = 16;
   context = canvas.getContext('2d');
   context.fillStyle = color_code;
@@ -16,15 +16,15 @@ function generate_favicon(color_code, callback){
   callback(canvas.toDataURL());
 }
 
-chrome.app.runtime.onLaunched.addListener(function(launchData) {
-  chrome.app.window.create(
-    'index.html',
-    {
-      id: 'mainWindow',
-      bounds: {width: 800, height: 600}
-    }
-  );
-});
+//chrome.app.runtime.onLaunched.addListener(function(launchData) {
+//  chrome.app.window.create(
+//    'index.html',
+//    {
+//      id: 'mainWindow',
+//      bounds: {width: 800, height: 600}
+//    }
+//  );
+//});
 
 // TODO: [fix] unable to receive message from content; try chrome.tabs.sendMessage
 chrome.runtime.onMessage.addListener(function(message, sender, callback){
