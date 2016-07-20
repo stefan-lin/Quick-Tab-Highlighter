@@ -13,8 +13,11 @@
 
   "permissions": [
     "tabs",
+    "activeTab",
     "storage",
-    "chrome://favicon/"
+    "chrome://favicon/",
+    "http://*/*",
+    "https://*/*"
   ],
   "browser_action":{
     "default_icon": "assets/devil.png",
@@ -24,9 +27,10 @@
 
   "content_scripts":[{
     "js": [ "js/app/content.js" ],
-    "css": [ "css/styles.css" ],
-    "matches": [ "http://*/*", "https://*/*"],
-    "run_at": "document_idle"
+    "matches": ["<all_urls>"]
+    //"css": [ "css/styles.css" ],
+    //"matches": [ "http://*/*", "https://*/*"]
+    //"all_frames": true
   }],
 
   "background": {
