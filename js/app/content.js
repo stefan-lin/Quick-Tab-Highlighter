@@ -2,11 +2,17 @@
  * Created by stefanlin on 7/18/16.
  */
 
+/*
+NOT WORK (favicon replacement)
+ http://jscolor.com/examples/
+ */
+
 // GLOBAL
-var origin_favicon_url   = null;
-var origin_title         = null;
-var favicon_link_element = null;
-var tab_url              = null;
+var origin_favicon_url    = null;
+var origin_title          = null;
+var favicon_link_element  = null;
+var favicon_link_elements = null;
+var tab_url               = null;
 
 function title_marqee_effect(origin_title, special_char){
   document.title = origin_title + special_char;
@@ -19,8 +25,11 @@ function title_marqee_effect(origin_title, special_char){
 
 function collect_tabInfo(){
   var link_ele = document.querySelector("head link[rel~='icon");
+  var link_list = document.querySelectorAll('head link[rel~="icon"');
+  console.log(link_list);
   
   if(!link_ele){
+    console.log('failed to find favicon url');
     chrome.runtime.sendMessage({
       from   : 'content',
       subject: 'DefaultFavicon',
@@ -32,6 +41,7 @@ function collect_tabInfo(){
   }
   else{
     origin_favicon_url = link_ele.href;
+    console.log('found faviocn url: ' + origin_favicon_url);
   }
   origin_title = document.title;
 }
@@ -42,11 +52,6 @@ function create_link_element(){
   favicon_link_element.setAttribute("rel", "shortcut icon");
   document.head.appendChild(favicon_link_element);
   console.log(favicon_link_element);
-}
-
-function shrink_img_to(online_url, width, height){
-  var image_template = new Image;
-  image_template.setAttribute('src', online_url);
 }
 
 // TODO: implement here to update the history
@@ -99,6 +104,7 @@ function replace_favicon(new_url, color_code, special_char){
 // TODO: maybe implement margee effect to the title
 function update_favicon(color_code, special_char){
   favicon_link_element = document.querySelector("head link[rel~='icon']");
+  
   console.log(favicon_link_element);
   if(!favicon_link_element) {
     create_link_element();
