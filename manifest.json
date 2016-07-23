@@ -36,5 +36,36 @@
   "background": {
     "scripts": ["js/app/background.js"],
     "persistent": false
+  },
+
+  "commands": {
+    "Highlight-One": {
+      "suggested_key": {
+        "default": "Alt+1",
+        "mac": "Alt+1"
+      },
+      "description": "Highlight current active tab with color one"
+    },
+    "Highlight-Two": {
+      "suggested_key": {
+        "default": "Alt+2",
+        "mac": "Alt+2"
+      },
+      "description": "Highlight current active tab with color two"
+    },
+    "Highlight-Three": {
+      "suggested_key": {
+        "default": "Alt+3",
+        "mac": "Alt+3"
+      },
+      "description": "Highlight current active tab with color three"
+    },
+    "Highlight-Four": {
+      "suggested_key": {
+        "default": "Alt+4",
+        "mac": "Alt+4"
+      },
+      "description": "Highlight current active tab with color four"
+    }
   }
 }

@@ -5,8 +5,8 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <h1 id="greeting" style="color: red;">&#9608</h1>
-  
+  <!--<h1 id="greeting" style="color: red;">&#9608</h1>-->
+  <canvas id="mycanvas"></canvas>
   <!--<script src="js/app/main.js"></script>-->
   <!-- Script by hscripts.com -->
   <!-- more scripts @ https://www.hscripts.com -->
@@ -46,7 +46,45 @@
           '\u269C' + '\u2638' + '\u2622' + '\u2618' + '\u2622' + '\u2641' + '\u2705' + '\u27BF';
       document.title += '\u26D4';
     }
-    titlebar();
+
+    function shrink_img_to(online_url, width, height){
+      var image_template = new Image();
+      image_template.setAttribute('src', online_url);
+      document.body.appendChild(image_template);
+      
+      
+      
+      var c = document.getElementById('olo');
+      c.width = width;
+      c.height = height;
+      var ctx = c.getContext('2d');
+      var nw = image_template.width * (width / image_template.width);
+      var nh = image_template.height * (height / image_template.height);
+      ctx.drawImage(online_url, 0, 0, nw, nh);
+  
+      
+      var image2 = new Image();
+      image2.setAttribute('src', ctx.toDataURL('image/png'));
+      document.body.appendChild(image2);
+      //drawImageProp(c.getContext('2d'), image_template, 0, 0, 100, 100);
+    }
+
+
+    var c = document.getElementById('mycanvas');
+    var ctx = c.getContext('2d');
+    var img = new Image();
+    img.onload = function () {
+      //ctx.drawImage(img, 0, 0, 100, 100); // resizes image to 300px wide, 200px high
+      ctx.drawImage(img, 0, 0, img.width * (100/img.width), img.height * (100/img.width));
+    }
+    img.src = 'https://www.apple.com/ac/structured-data/images/open_graph_logo.png?201607071105';
+    
+    
+    
+    
+    //titlebar();
+    
+    //shrink_img_to('https://www.apple.com/ac/structured-data/images/open_graph_logo.png?201607071105', 16, 16);
   </script>
 </body>
 </html>

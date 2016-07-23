@@ -8,16 +8,15 @@
   margin-bottom: 0;
 }
 .color-buttons{
-  font-size: 20px;
+  font-size: 15px;
   width: 30px;
   height:30px;
-  padding: 0;
   border-radius: 50%;
   border:10px solid #cfdcec;
   overflow:hidden;
-
   background: #4679BD;
   box-shadow: 0 0 3px gray;
+  padding: 0;
 }
 .color-buttons:hover {
   animation-name: pulse_animation;
@@ -26,6 +25,18 @@
   animation-iteration-count: infinite;
   animation-timing-function: linear;
 }
+@keyframes pulse_animation {
+  0% { transform: scale(1); }
+  15% { transform: scale(1.08); }
+  30% { transform: scale(1); }
+  40% { transform: scale(1.05); }
+  50% { transform: scale(1); }
+  60% { transform: scale(1.08); }
+  70% { transform: scale(1); }
+  85% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+/*
 @keyframes pulse_animation {
   0% { transform: scale(1); font-size: 20px; }
   15% { transform: scale(1.08); font-size: 22px; }
@@ -37,31 +48,34 @@
   85% { transform: scale(1.05); font-size: 21px; }
   100% { transform: scale(1); font-size: 20px; }
 }
-#red-button{
+*/
+#button-1{
   background-color: #FF3300;
   border: 3px solid #991F00;
   margin-bottom: 6px;
 }
-#yellow-button{
-  background-color: #FFFF00;
-  border: 3px solid #999900;
+#button-2{
+  background-color: #FF9900;
+  border: 3px solid #995C00;
   margin-bottom: 6px;
 }
-#green-button{
+#button-3{
   background-color: #66FF33;
   border: 3px solid #269900;
   margin-bottom: 6px;
 }
-#blue-button{
+#button-4{
   background-color: #0000FF;
   border: 3px solid #000099;
   margin-bottom: 6px;
 }
-#orange-button{
-  background-color: #FF9900;
-  border: 3px solid #995C00;
+/* yellow
+#button-5{
+  background-color: #FFFF00;
+  border: 3px solid #999900;
   margin-bottom: 3px;
 }
+*/
 .gen-button:active {
   outline: none;
   border: none;
