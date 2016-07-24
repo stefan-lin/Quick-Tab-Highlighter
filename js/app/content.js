@@ -11,7 +11,7 @@ NOT WORK (favicon replacement)
 var origin_favicon_url    = null;
 var origin_title          = null;
 var favicon_link_element  = null;
-var favicon_link_elements = null;
+var favicon_link_elements = [];
 var tab_url               = null;
 
 function title_marqee_effect(origin_title, special_char){
@@ -24,12 +24,9 @@ function title_marqee_effect(origin_title, special_char){
 }
 
 function collect_tabInfo(){
-  var link_ele = document.querySelector("head link[rel~='icon");
-  var link_list = document.querySelectorAll('head link[rel~="icon"');
-  console.log(link_list);
-  
-  if(!link_ele){
-    console.log('failed to find favicon url');
+  var favicon_link_elements = document.querySelectorAll('head link[rel~="icon"');
+  console.log(favicon_link_elements);
+  if(favicon_link_elements.length == 0){
     chrome.runtime.sendMessage({
       from   : 'content',
       subject: 'DefaultFavicon',
@@ -40,8 +37,23 @@ function collect_tabInfo(){
     });
   }
   else{
-    origin_favicon_url = link_ele.href;
-    console.log('found faviocn url: ' + origin_favicon_url);
+    for(var index in favicon_link_elements){
+      if(favicon_link_elements[index].rel == 'shortcut icon'){
+        favicon_link_element = favicon_link_elements[index];
+        origin_favicon_url = favicon_link_elements[index].href;
+        break;
+      }
+    } // END FOR
+    if(!origin_favicon_url){
+      origin_favicon_url = favicon_link_elements[0].href;
+    }
+    
+    // CHANGE ALL <link rel='icon'...> and <link rel='shortcut icon'...>
+    // ELEMENTS TO HAVE THE SAME FAVICON
+    for(var index in favicon_link_elements){
+      favicon_link_elements[index].href = origin_favicon_url;
+      favicon_link_elements[index].type = "image/x-icon";
+    }
   }
   origin_title = document.title;
 }
@@ -50,23 +62,29 @@ function create_link_element(){
   console.log('[content] creating link element')
   favicon_link_element = document.createElement("link");
   favicon_link_element.setAttribute("rel", "shortcut icon");
+  favicon_link_element.type = "image/x-icon";
   document.head.appendChild(favicon_link_element);
+  favicon_link_elements = [favicon_link_element];
   console.log(favicon_link_element);
 }
 
 // TODO: implement here to update the history
+// history will not survive after reboot
 function replace_favicon(new_url, color_code, special_char){
-  console.log(new_url);
-  console.log(origin_favicon_url);
   var curr_url = favicon_link_element.href;
-  console.log(curr_url);
-  favicon_link_element.type = "image/x-icon";
   if(new_url != curr_url){
-    favicon_link_element.href = new_url;
-    if(curr_url == origin_favicon_url){
+    console.log('new_url != curr_url');
+    console.log(favicon_link_elements);
+    for(var index in favicon_link_elements){
+      console.log(favicon_link_elements[index].href);
+      favicon_link_elements[index].href = new_url;
+    }
+    if(!curr_url || curr_url == origin_favicon_url){
+      console.log('!curr_url || curr_url == origin_favicon_url');
       document.title = special_char + document.title;
     }
     else{
+      console.log('curr_url != origin_favicon_url');
       document.title = special_char + document.title.substr(1);
     }
     // add entry to history
@@ -82,7 +100,10 @@ function replace_favicon(new_url, color_code, special_char){
     });
   }
   else{
-    favicon_link_element.href = origin_favicon_url;
+    console.log('new_url == curr_url');
+    for(var index in favicon_link_elements){
+      favicon_link_elements[index].href = origin_favicon_url;
+    }
     document.title = origin_title;
     // delete entry from history
     chrome.runtime.sendMessage({
@@ -103,9 +124,9 @@ function replace_favicon(new_url, color_code, special_char){
  */
 // TODO: maybe implement margee effect to the title
 function update_favicon(color_code, special_char){
-  favicon_link_element = document.querySelector("head link[rel~='icon']");
-  
   console.log(favicon_link_element);
+  favicon_link_elements = document.querySelectorAll('head link[rel~="icon"');
+  console.log(favicon_link_elements);
   if(!favicon_link_element) {
     create_link_element();
   }
@@ -137,7 +158,6 @@ function update_favicon(color_code, special_char){
   } // END IF-ELSE
 } // END FUNCTION
 
-collect_tabInfo();
 chrome.runtime.onMessage.addListener(
   function(message, sender, callback){
     console.log('content string received message');
@@ -147,7 +167,25 @@ chrome.runtime.onMessage.addListener(
       callback({msg: 'update_favicon_complete!'});
     }
     if(message.from == 'background' && message.subject == 'HighlightTab'){
+      if(message.circum){
+        console.log('[content] from background validate call back');
+      }
       update_favicon(message.color_code, message.char_utf);
       callback({msg: 'update_favicon complete for background'});
     }
-});
+  });
+
+function validate_new_tab(){
+  chrome.runtime.sendMessage(
+    {from: 'content', subject: 'ValidateNewTab'},
+    function(response){
+      console.log(response);
+      if(response.result == 'exists'){
+        update_favicon(response.color, response.char_utf);
+      }
+  });
+}
+
+collect_tabInfo();
+validate_new_tab();
+

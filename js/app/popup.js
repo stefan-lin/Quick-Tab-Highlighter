@@ -2,53 +2,6 @@
  * Created by stefanlin on 7/17/16.
  */
 
-/**
- * CONSTANT DECLARATION
- */
-const OPT_ID  = '#option-button';
-const HIS_ID  = '#history-button';
-const RED_ID  = '#button-1';
-const YLW_ID  = '#button-2';
-const GRN_ID  = '#button-3';
-const BLU_ID  = '#button-4';
-const ORG_ID  = '#button-5';
-const OPT_URL = 'option.html';
-const HIS_URL = 'history.html';
-
-function print_response_to_log(response_message){
-  console.log(response_message);
-}
-
-function reg_option_listener(){
-  $(OPT_ID).addEventListener('click', function(event){
-    
-  });
-}
-
-function reg_red_listener(){
-  $(RED_ID).html('\u26D4');
-  $(RED_ID).on('click', function(){
-    console.log('red button clicked');
-    //var background_color = $(RED_ID).attr('background-color');
-    var background_color = '#FF3300'
-    console.log(background_color);
-    chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
-      chrome.tabs.sendMessage(
-        tabs[0].id,
-        {
-          from        : 'popup',
-          subject     : 'HighlightTab',
-          color       : background_color,
-          special_char: '\u26D4'
-        },
-        function(response){
-          console.log(response.msg);
-        }
-      );  // END chrome.tabs.sendMessage
-    }); // END chrome.tabs.query
-  });
-}
-
 function reg_listener(element_id, word_icon, color_code){
   $(element_id + ':nth-child(1)').html(word_icon);
   // NEED TO SET COLORS

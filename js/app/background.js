@@ -99,6 +99,27 @@ chrome.runtime.onMessage.addListener(function(message, sender, callback){
       return true;
     }
   }
+  else if(message.from == 'content' && message.subject == 'ValidateNewTab'){
+    console.log('[background] validate new tab');
+    chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
+      var ret = tabs[0].url;
+      var history_obj = history[ret];
+      console.log(ret);
+      console.log(history_obj);
+      if(history_obj){
+        console.log('new tab exists in history');
+        callback({
+          result: 'exists',
+          color: history_obj['color'],
+          char_utf: history_obj['s_char']
+        });
+      }
+      else{
+        callback({result: 'not exists'});
+      }
+    });
+    return true;
+  }
   else if(message.from == 'content' && message.subject == 'UpdateHistory' &&
           message.action == 'SET'){
     chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
@@ -124,7 +145,7 @@ chrome.runtime.onMessage.addListener(function(message, sender, callback){
   }
 });
 
-chrome.commands.onCommand.addListener(function(command) {
+function parse_keyboard_commands(command){
   switch(command){
     case 'Highlight-One':
       talk_to_content('#button-1');
@@ -141,4 +162,35 @@ chrome.commands.onCommand.addListener(function(command) {
     default:
       console.log('[background] invalid command entry.');
   }
-});
+}
+
+chrome.commands.onCommand.addListener(parse_keyboard_commands);
+
+function validate_new_url_existence(tabId, changeInfo, tabInfo){
+  console.log(tabId);
+  console.log(changeInfo);
+  console.log(tabInfo);
+  if (changeInfo.url) {
+    console.log("Tab: " + tabId +
+      " URL changed to " + changeInfo.url);
+  }
+  if(changeInfo.status == 'complete'){
+    var history_obj = history[changeInfo.url];
+    if(history_obj){
+      chrome.tabs.sendMessage(
+        tabId,
+        {
+          from: 'background',
+          subject: 'HighlightTab',
+          circum: 'vtab',
+          color_code: history_obj['color'],
+          char_utf: history_obj['s_char']
+        },
+        function(response){
+          console.log(response);
+        })
+    }
+  }
+}
+
+chrome.tabs.onUpdated.addListener(validate_new_url_existence);

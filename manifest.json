@@ -27,10 +27,8 @@
 
   "content_scripts":[{
     "js": [ "js/app/content.js" ],
-    "matches": ["<all_urls>"]
-    //"css": [ "css/styles.css" ],
-    //"matches": [ "http://*/*", "https://*/*"]
-    //"all_frames": true
+    "matches": ["<all_urls>"],
+    "run_at": "document_end"
   }],
 
   "background": {
