@@ -47,16 +47,6 @@ function generate_favicon(color_code, callback){
   callback(canvas.toDataURL());
 }
 
-//chrome.app.runtime.onLaunched.addListener(function(launchData) {
-//  chrome.app.window.create(
-//    'index.html',
-//    {
-//      id: 'mainWindow',
-//      bounds: {width: 800, height: 600}
-//    }
-//  );
-//});
-
 function talk_to_content(button_id){
   console.log(button_info);
   console.log(button_id);

@@ -5,6 +5,7 @@
   padding-right: 2px;
   padding-top: 5px;
   overflow: hidden;
+  margin-top: 0;  /* take out this part if adding option button (maybe) */
   margin-bottom: 0;
 }
 .color-buttons{
