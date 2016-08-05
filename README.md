@@ -1,4 +1,4 @@
-Tab Highlighter
+Tab Highlighter <img src="assets/z_48.png">
 ---
 ###Purpose
 This Chrome extension is built for people who open multiple tabs regularly. The extension provides a quick solution to allow user to **highlight** tabs so that the certain tabs could be more recognizable.
@@ -14,6 +14,7 @@ This Chrome extension is built for people who open multiple tabs regularly. The 
   * Get extension from Chrome App Store
 
 ###Screenshots
+
 |    | notes |
 |:--:|:----- |
 | <img src="screenshots/be4.png" width="400"> | **BEFORE** highlighting |
@@ -23,6 +24,7 @@ This Chrome extension is built for people who open multiple tabs regularly. The 
 | <img src="screenshots/popup.png" height="200"> | Popup menu |
 
 ###Instruction
+
 | Command/Shortcut | Action |
 | :-----: | :----- |
 | ALT + 1 | Highlight with color **RED** |
